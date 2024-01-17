@@ -9,10 +9,13 @@ import (
 func main() {
 
 	var (
-		numberCard   string
-		multiply     bool
-		splitNumbers []string
-		sum          int
+		numberCard      string
+		multiply        bool
+		splitNumbers    []string
+		sum             int
+		sliceNumberSums []int
+		sumOfAll        int
+		numberOfControl int
 	)
 
 	numberCard = "12345"
@@ -49,14 +52,36 @@ func main() {
 
 					sum += numberAdd
 				}
+				sliceNumberSums = append(sliceNumberSums, sum)
 				fmt.Println(sum)
 			} else {
+				sliceNumberSums = append(sliceNumberSums, number)
 				fmt.Println(number)
 			}
 
 		} else {
 			multiply = true
+			number, err := strconv.Atoi(splitNumber) // convert string numbre to interger number
+			if err != nil {
+				fmt.Println("Erreur de conversion: ", err)
+				return
+			}
+			sliceNumberSums = append(sliceNumberSums, number)
 			fmt.Println(splitNumber)
 		}
 	}
+
+	fmt.Println(sliceNumberSums)
+
+	sumOfAll = 0
+	for i := 0; i < len(sliceNumberSums); i++ {
+		sumOfAll += sliceNumberSums[i]
+	}
+
+	fmt.Println("somme de tout les chiffre: ", sumOfAll)
+
+	numberOfControl = 10 - (sumOfAll % 10)
+	fmt.Println(numberOfControl)
+	sliceNumberSums = append(sliceNumberSums, numberOfControl)
+	fmt.Println(sliceNumberSums)
 }
